@@ -6,9 +6,9 @@ from selenium.webdriver.chrome.options import Options
 
 
 def setup_browser():
-    """Запуск браузера (универсально для локальной среды и CI)."""
+    """Универсальный запуск Chrome для локали и CI."""
     opts = Options()
-    # Флаги для работы в CI (headless)
+    # Хедлесс и стабильные флаги для GitHub Actions
     opts.add_argument("--headless=new")
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-dev-shm-usage")
@@ -16,7 +16,7 @@ def setup_browser():
 
     driver = webdriver.Chrome(options=opts)
 
-    # Локально можно разворачивать окно, но на GitHub Actions это ломается
+    # Локально можно разворачивать окно (в CI это ломается)
     if os.getenv("GITHUB_ACTIONS") != "true":
         try:
             driver.maximize_window()
@@ -43,7 +43,7 @@ def test_login_success():
 
 
 def test_login_fail():
-    """Ввод невалидных credentials и проверка вывода ошибки"""
+    """Ввод невалидных credentials на странице логина и проверка вывода ошибки"""
     driver = setup_browser()
     driver.get("https://the-internet.herokuapp.com/login")
 
