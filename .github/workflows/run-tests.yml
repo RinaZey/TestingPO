@@ -29,5 +29,4 @@ jobs:
           pip install pytest selenium webdriver-manager
 
       - name: Run pytest
-        run: |
-          xvfb-run -a pytest -q Lab3 --maxfail=1 --disable-warnings
+        run: pytest -q Lab3 --maxfail=1 --disable-warnings
